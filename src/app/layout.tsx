@@ -18,14 +18,41 @@ export const metadata: Metadata = {
   keywords: [
     "Viraj Pravin Mali",
     "Viraj Mali",
+    "viraj",
+    "viraj mali",
+    "virajmali1523",
+    "virajmali2006",
+    "Mobile & Frontend Engineer",
     "Frontend Developer",
     "Mobile App Developer",
+    "Cross-Platform App Developer",
+    "Ionic Framework Developer",
     "Ionic Developer",
     "Angular Developer",
+    "React.js Developer",
+    "React Developer",
     "TypeScript Developer",
+    "JavaScript Developer",
+    "Node.js Developer",
+    "Firebase Developer",
+    "Solana Web3.js Developer",
+    "Solana Blockchain Developer",
+    "Smart Contracts Developer",
+    "dApp Developer",
     "Next.js Portfolio",
     "Navi Mumbai Developer",
-    "Nashik Developer"
+    "Nashik Developer",
+    "Software Engineering Intern",
+    "App Developer Intern",
+    "REST APIs Integration",
+    "Prudent Tech IT Solutions",
+    "Cyber Sanskar Nashik",
+    "SoulPay Blockchain Payment Gateway",
+    "ChatCom Chat Application",
+    "Smt. Indira Gandhi College of Engineering",
+    "K. K. Wagh Polytechnic",
+    "Computer Engineering Student",
+    "Web Developer Navi Mumbai"
   ],
   authors: [{ name: "Viraj Pravin Mali", url: "https://github.com/virajmali1523" }],
   openGraph: {
@@ -59,8 +86,50 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
       <body className="min-h-full flex flex-col bg-transparent text-white relative">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Viraj Pravin Mali",
+              "url": "https://virajmali.com",
+              "sameAs": ["https://github.com/virajmali1523"],
+              "jobTitle": "Mobile & Frontend Engineer",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Prudent Tech IT Solutions"
+              },
+              "alumniOf": [
+                {
+                  "@type": "EducationalOrganization",
+                  "name": "Smt. Indira Gandhi College of Engineering"
+                },
+                {
+                  "@type": "EducationalOrganization",
+                  "name": "K. K. Wagh Polytechnic"
+                }
+              ],
+              "knowsAbout": [
+                "Ionic Framework",
+                "Angular",
+                "React.js",
+                "TypeScript",
+                "JavaScript",
+                "Firebase",
+                "Solana Web3.js",
+                "Blockchain Development",
+                "REST APIs",
+                "Mobile App Development",
+                "Frontend Development",
+                "Smart Contracts",
+                "dApps"
+              ]
+            })
+          }}
+        />
         {/* Hardware-accelerated fixed background layer (replaces high-repaint background-attachment: fixed) */}
-        <div 
+        <div
           className="fixed inset-0 -z-50 bg-[#080C14] pointer-events-none select-none"
           style={{
             backgroundImage: `
