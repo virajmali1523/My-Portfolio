@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import { 
   ExternalLink, Code, Server, Shield, Cpu, 
   Layers, Target, Award, CheckCircle2, AlertTriangle, Play 
@@ -25,27 +25,25 @@ const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 function TiltWrapper({ children, className }: { children: React.ReactNode; className?: string }) {
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-  const [glareX, setGlareX] = useState(50);
-  const [glareY, setGlareY] = useState(50);
+  const x = useMotionValue(0.5);
+  const y = useMotionValue(0.5);
+
+  const rotateX = useSpring(useTransform(y, [0, 1], [10, -10]), { damping: 25, stiffness: 300 });
+  const rotateY = useSpring(useTransform(x, [0, 1], [-10, 10]), { damping: 25, stiffness: 300 });
+
+  const glareX = useTransform(x, [0, 1], [0, 100]);
+  const glareY = useTransform(y, [0, 1], [0, 100]);
+  const glareBg = useMotionTemplate`radial-gradient(circle 180px at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.08), transparent)`;
+
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const box = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - box.left;
-    const y = e.clientY - box.top;
+    const mouseX = e.clientX - box.left;
+    const mouseY = e.clientY - box.top;
     
-    // Normalized coordinates (-1 to 1)
-    const normX = (x / box.width) * 2 - 1;
-    const normY = (y / box.height) * 2 - 1;
-
-    setRotateX(-normY * 10); // Max 10 degrees tilt on X
-    setRotateY(normX * 10);  // Max 10 degrees tilt on Y
-    
-    // Glare position
-    setGlareX((x / box.width) * 100);
-    setGlareY((y / box.height) * 100);
+    x.set(mouseX / box.width);
+    y.set(mouseY / box.height);
   };
 
   const handleMouseEnter = () => {
@@ -54,8 +52,8 @@ function TiltWrapper({ children, className }: { children: React.ReactNode; class
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    setRotateX(0);
-    setRotateY(0);
+    x.set(0.5);
+    y.set(0.5);
   };
 
   return (
@@ -63,22 +61,22 @@ function TiltWrapper({ children, className }: { children: React.ReactNode; class
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      animate={{
-        rotateX: rotateX,
-        rotateY: rotateY,
+      style={{
+        rotateX,
+        rotateY,
         scale: isHovered ? 1.025 : 1,
+        transformStyle: "preserve-3d",
+        perspective: 1000,
       }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      style={{ transformStyle: "preserve-3d", perspective: 1000 }}
       className={`relative ${className || ""}`}
     >
       {children}
       {/* Dynamic light flare / glare overlay */}
       {isHovered && (
-        <div
-          className="absolute inset-0 pointer-events-none z-30 transition-opacity duration-300 rounded-xl"
+        <motion.div
+          className="absolute inset-0 pointer-events-none z-30 rounded-xl"
           style={{
-            background: `radial-gradient(circle 180px at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.08), transparent)`,
+            background: glareBg,
           }}
         />
       )}

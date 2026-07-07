@@ -84,7 +84,11 @@ export default function Hero({ isPreloaderDone }: { isPreloaderDone: boolean }) 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      if ((window as any).lenis) {
+        (window as any).lenis.scrollTo(el, { duration: 1.2 });
+      } else {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 

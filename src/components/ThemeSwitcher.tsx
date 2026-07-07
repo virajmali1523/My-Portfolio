@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Palette, Check } from "lucide-react";
 
@@ -39,6 +39,7 @@ const themes: ThemePreset[] = [
 export default function ThemeSwitcher() {
   const [activeTheme, setActiveTheme] = useState("cobalt");
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Load saved theme
@@ -51,16 +52,34 @@ export default function ThemeSwitcher() {
     }
   }, []);
 
-  const applyTheme = (theme: ThemePreset) => {
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  const applyTheme = (theme: ThemePreset, shouldClose = false) => {
     setActiveTheme(theme.name);
     document.documentElement.style.setProperty("--primary", theme.primary);
     document.documentElement.style.setProperty("--secondary", theme.secondary);
     document.documentElement.style.setProperty("--accent", theme.accent);
     localStorage.setItem("portfolio-theme", theme.name);
+    if (shouldClose) {
+      setIsOpen(false);
+    }
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div ref={menuRef} className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -75,7 +94,7 @@ export default function ThemeSwitcher() {
             {themes.map((t) => (
               <button
                 key={t.name}
-                onClick={() => applyTheme(t)}
+                onClick={() => applyTheme(t, true)}
                 className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                   activeTheme === t.name
                     ? "bg-white/10 text-white font-bold"

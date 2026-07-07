@@ -29,12 +29,20 @@ export default function Footer() {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      if ((window as any).lenis) {
+        (window as any).lenis.scrollTo(el, { duration: 1.2 });
+      } else {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if ((window as any).lenis) {
+      (window as any).lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (

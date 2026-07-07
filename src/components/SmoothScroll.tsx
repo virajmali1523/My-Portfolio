@@ -30,6 +30,9 @@ export default function SmoothScroll({
     // Force Lenis to scroll to top immediately
     lenis.scrollTo(0, { immediate: true });
 
+    // Expose Lenis instance globally
+    (window as any).lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -39,6 +42,7 @@ export default function SmoothScroll({
 
     return () => {
       lenis.destroy();
+      (window as any).lenis = undefined;
     };
   }, []);
 

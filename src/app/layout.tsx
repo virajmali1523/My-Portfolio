@@ -58,7 +58,21 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col bg-transparent text-white">
+      <body className="min-h-full flex flex-col bg-transparent text-white relative">
+        {/* Hardware-accelerated fixed background layer (replaces high-repaint background-attachment: fixed) */}
+        <div 
+          className="fixed inset-0 -z-50 bg-[#080C14] pointer-events-none select-none"
+          style={{
+            backgroundImage: `
+              radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+              radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+              radial-gradient(at 50% 50%, rgba(6, 182, 212, 0.05) 0px, transparent 60%),
+              radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 50%)
+            `,
+            backgroundSize: '100% 100%'
+          }}
+        />
         {children}
       </body>
     </html>

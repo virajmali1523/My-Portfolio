@@ -98,7 +98,7 @@ export default function ThreeBg() {
 
     // 3D Organic Morphing Blob
     // Detail: icosahedron with subdivision
-    const blobGeometry = new THREE.IcosahedronGeometry(2.4, 5);
+    const blobGeometry = new THREE.IcosahedronGeometry(2.4, 3);
     // Keep a copy of the original vertex positions for deformation
     const originalPositions = blobGeometry.attributes.position.clone();
 
@@ -264,7 +264,7 @@ export default function ThreeBg() {
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 -z-10 w-full h-full overflow-hidden pointer-events-none"
+      className="fixed inset-0 -z-10 w-screen h-screen overflow-hidden pointer-events-none"
     >
       <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
