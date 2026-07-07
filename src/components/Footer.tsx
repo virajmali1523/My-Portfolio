@@ -22,6 +22,9 @@ const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 
+import Logo from "./Logo";
+
+
 export default function Footer() {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -49,12 +52,9 @@ export default function Footer() {
             whileHover={{ scale: 1.05 }}
             onClick={scrollToTop}
             data-cursor-text="top"
-            className="flex items-center gap-2 cursor-pointer group"
+            className="cursor-pointer"
           >
-            <span className="w-2.5 h-2.5 bg-secondary rounded-full group-hover:scale-125 transition-transform duration-300 shadow-[0_0_10px_#00E5FF]" />
-            <span className="font-mono text-sm font-black tracking-widest text-white group-hover:text-secondary transition-colors duration-300">
-              VIRAJ MALI
-            </span>
+            <Logo showText={true} />
           </motion.div>
 
           {/* Navigation Links */}

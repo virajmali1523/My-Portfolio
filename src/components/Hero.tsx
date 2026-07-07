@@ -22,6 +22,9 @@ const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 
+import Logo from "./Logo";
+
+
 export default function Hero({ isPreloaderDone }: { isPreloaderDone: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [roleIndex, setRoleIndex] = useState(0);
@@ -105,13 +108,10 @@ export default function Hero({ isPreloaderDone }: { isPreloaderDone: boolean }) 
           initial={{ opacity: 0, x: -20 }}
           animate={isPreloaderDone ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="flex items-center gap-2 cursor-pointer"
+          className="cursor-pointer"
           onClick={() => scrollToSection("hero")}
         >
-          <span className="w-2.5 h-2.5 bg-accent rounded-full animate-pulse shadow-[0_0_10px_#00FFA3]" />
-          <span className="font-mono text-sm font-black tracking-widest text-white hover:text-accent transition-colors">
-            VIRAJ MALI
-          </span>
+          <Logo showText={true} />
         </motion.div>
 
         <motion.div
