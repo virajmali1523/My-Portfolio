@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-darkbg: #080C14;
+  
+  --font-sans: var(--font-geist-sans), Inter, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), Courier New, monospace;
+}
+
+:root {
+  --background: #080C14;
+  --foreground: #F3F4F6;
+  --primary: #3B82F6;
+  --secondary: #06B6D4;
+  --accent: #10B981;
+}
+
+html, body {
+  background-color: #080C14;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(6, 182, 212, 0.05) 0px, transparent 60%),
+    radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 50%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  color: var(--foreground);
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080C14;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #3B82F6, #06B6D4);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #06B6D4, #10B981);
+}
+
+
+/* Custom Utilities */
+@utility glass-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@utility glass-card-hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(6, 182, 212, 0.2);
+  box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.12);
+}
+
+@utility neon-border-primary {
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+@utility neon-border-secondary {
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+  border-color: rgba(6, 182, 212, 0.5);
+}
+
+@utility neon-border-accent {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+@utility text-gradient {
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility text-gradient-purple-blue {
+  background: linear-gradient(135deg, #3B82F6 0%, #6366f1 50%, #4F46E5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility text-gradient-cyan-green {
+  background: linear-gradient(135deg, #06B6D4 0%, #10B981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(3deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes grid-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 8s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
+
+/* Grid overlay background */
+.grid-overlay {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  animation: grid-move 20s linear infinite;
+}
+
+/* Noise overlay */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+}
+
+/* Hide default cursor on desktop when Custom Cursor is loaded */
+@media (min-width: 768px) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* Hide scrollbar when preloader is active */
+.no-scroll {
+  overflow: hidden !important;
+}
+
+/* Styled code block for terminal */
+.terminal-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.terminal-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 4px;
+}
+.terminal-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.2);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+.terminal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 229, 255, 0.5);
+}
+
+/* Floating ambient nebula blobs keyframes and helper classes */
+@keyframes blob-float-1 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+@keyframes blob-float-2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(-40px, 40px) scale(1.15);
+  }
+}
+@keyframes blob-float-3 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  45% {
+    transform: translate(40px, -30px) scale(0.9);
+  }
+}
+.animate-blob-1 {
+  animation: blob-float-1 25s infinite alternate ease-in-out;
+}
+.animate-blob-2 {
+  animation: blob-float-2 30s infinite alternate ease-in-out;
+}
+.animate-blob-3 {
+  animation: blob-float-3 28s infinite alternate ease-in-out;
+}
