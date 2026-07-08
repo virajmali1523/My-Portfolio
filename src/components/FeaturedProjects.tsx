@@ -160,7 +160,7 @@ const projectsList: ProjectData[] = [
     ],
     challenges: "Preventing excessive Firestore read charges and maintaining state consistency during active socket syncing. Solved by writing client-side caches and query-throttling operators in RxJS.",
     results: "Decommissioned legacy communication tools and deployed a lightweight alternative achieving minimal synchronization latency.",
-    liveUrl: "https://chatcomm.netlify.app/login",
+    liveUrl: "https://chatcomm.netlify.app/",
     githubUrl: "https://github.com/virajmali1523/Chat-Com",
     mockupType: "browser",
     mockupTitle: "ChatCom App"
